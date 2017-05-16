@@ -22,8 +22,6 @@ window.onload = function () {
   var getHint = document.getElementById("hint");
   var showClue = document.getElementById("clue");
 
-
-
   // create alphabet ul
   var buttons = function () {
     myButtons = document.getElementById('buttons');
@@ -40,7 +38,6 @@ window.onload = function () {
     }
   }
     
-  
   // Select Category
   var selectCat = function () {
     if (chosenCategory === categories[0]) {
@@ -52,7 +49,7 @@ window.onload = function () {
     }
   }
 
-  // Create geusses ul
+  // Create guesses ul
    result = function () {
     wordHolder = document.getElementById('hold');
     correct = document.createElement('ul');
@@ -119,13 +116,12 @@ window.onload = function () {
         showScore.innerHTML = "Your Score: " + score;
         correct.parentNode.removeChild(correct);
         letters.parentNode.removeChild(letters);
-        showClue.innerHTML = ""; 
+        showClue.innerHTML = "Clue: ??"; 
         play();       
       }
     }
   }
   
-    
   // Play
   play = function () {
     categories = [
@@ -147,13 +143,19 @@ window.onload = function () {
     result();
     comments();
     selectCat();
+
+    document.onkeyup = function(){
+      var keyboardEntry = document.getElementById("userText");
+      keyboardEntry.textContent = event.key;
+    };
+
   }
 
   play();
   
   // Hint
 
-    hint.onclick = function() {
+  hint.onclick = function() {
 
       hints = [
         ["Material Girl", "Electric Youth", "True Colors", "Greatest Love"],
@@ -163,7 +165,7 @@ window.onload = function () {
 
     var categoryIndex = categories.indexOf(chosenCategory);
     var hintIndex = chosenCategory.indexOf(word);
-    showClue.innerHTML = "Clue: - " +  hints [categoryIndex][hintIndex];
+    showClue.innerHTML = "Clue:" +  hints [categoryIndex][hintIndex];
     };
 
    // Reset
@@ -171,7 +173,7 @@ window.onload = function () {
   document.getElementById('reset').onclick = function() {
     correct.parentNode.removeChild(correct);
     letters.parentNode.removeChild(letters);
-    showClue.innerHTML = "Clue -";
+    showClue.innerHTML = "Clue: ??";
     score = 0;
     showScore.innerHTML = "Your Score: " + score;
     play();
